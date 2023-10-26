@@ -26,7 +26,7 @@
             app:layout_constraintVertical_bias="0.07" />
 
         <EditText
-            android:id="@+id/inputBox"
+            android:id="@+id/et_input_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="96dp"
@@ -41,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/Text1" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Download All Media"

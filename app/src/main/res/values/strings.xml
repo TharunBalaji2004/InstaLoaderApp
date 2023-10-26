@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">InstaLoaderApp</string>
+    <string name="title">Enter Instagram Username or Post Link</string>
+    <string name="public_acc">(Only public accounts)</string>
+    <string name="download">Download All Media</string>
+    <string name="download_locations">Download Locations</string>
+    <string name="profiles_path">Profiles: InstaLoaderApp/username</string>
+    <string name="posts_path">Posts: InstaLoaderApp/posts</string>
+    <string name="project_name">InstaLoader v1.5</string>
 </resources>
