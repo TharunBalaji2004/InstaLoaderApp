@@ -18,10 +18,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     @RequiresApi(Build.VERSION_CODES.M)
