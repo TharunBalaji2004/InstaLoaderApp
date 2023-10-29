@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-
-    </data>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,6 +67,7 @@
 
             <EditText
                 android:id="@+id/et_input"
+                android:hint="Username or Link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50sp"
@@ -84,9 +81,19 @@
                 android:layout_margin="20sp"
                 android:text="@string/download" />
 
+            <TextView
+                android:id="@+id/tv_info"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+
             <LinearLayout
                 android:id="@+id/ll_status"
-                android:visibility="gone"
+                android:visibility="invisible"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -94,7 +101,8 @@
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true">
                 </com.google.android.material.progressindicator.CircularProgressIndicator>
 
                 <TextView

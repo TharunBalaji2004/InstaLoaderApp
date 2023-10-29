@@ -3,6 +3,7 @@ package com.alphacorp.instaloader.di
 import android.content.Context
 import com.alphacorp.instaloader.loader.InstaLoader
 import com.alphacorp.instaloader.loader.InstaLoaderImpl
+import com.chaquo.python.PyObject
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
 import dagger.Module
@@ -17,16 +18,17 @@ import javax.inject.Singleton
 class InstanceModule {
     @Singleton
     @Provides
-    fun providesPythonInstance(@ApplicationContext context: Context): Python {
+    fun providesPythonInstance(@ApplicationContext context: Context): PyObject {
         if (!Python.isStarted()) {
             Python.start(AndroidPlatform(context));
         }
-        return Python.getInstance()
+        val python = Python.getInstance()
+        return python.getModule("script")
     }
 
     @Singleton
     @Provides
-    fun providesInstaLoader(): InstaLoader {
-        return InstaLoaderImpl()
+    fun providesInstaLoader(script: PyObject): InstaLoader {
+        return InstaLoaderImpl(script)
     }
 }

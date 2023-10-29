@@ -3,9 +3,12 @@
     <string name="title">Enter Instagram Username or Post Link</string>
     <string name="public_acc">(Only public accounts)</string>
     <string name="download">Download All Media</string>
-    <string name="status">Status</string>
+    <string name="post_count">Total post count: %s</string>
+    <string name="status">Downloading...</string>
     <string name="download_locations">Download Locations</string>
     <string name="profiles_path">Profiles: InstaLoaderApp/username</string>
     <string name="posts_path">Posts: InstaLoaderApp/posts</string>
     <string name="project_name">InstaLoader v1.5</string>
+    <string name="project_link">https://github.com/AzeemIdrisi/InstaLoaderApp</string>
+    <string name="insta_url">https://www.instagram.com/</string>
 </resources>

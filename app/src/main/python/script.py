@@ -1,27 +1,35 @@
 import instaloader
 
+def check_profile_exist(username):
+    L = instaloader.Instaloader()
+    try:
+        profile = instaloader.Profile.from_username(L.context, username)
+        return True
+    except instaloader.ProfileNotExistsException:
+        return False
 
 def download(profile):
-    profile = profile.replace(" ", "")
-    user = instaloader.Instaloader()
-    user.save_metadata = False
-    user.post_metadata_txt_pattern = ""
-    user.dirname_pattern = f"/sdcard/InstaLoaderApp/{profile}"
-    user.download_profile(profile)
+    L = instaloader.Instaloader()
+    L.save_metadata = False
+    L.post_metadata_txt_pattern = ""
+    L.dirname_pattern = f"/sdcard/InstaLoaderApp/{profile}"
+    curr = 0
+    profileobj = instaloader.Profile.from_username(L.context, profile)
+    for post in profileobj.get_posts():
+        L.download_post(post, target="")
+        curr += 1
 
+    return curr
 
 def post_count(username):
-    username = username.replace(" ", "")
     L = instaloader.Instaloader()
     profile = instaloader.Profile.from_username(L.context, username)
-
-    posts = profile.get_posts()
-
-    return posts.count
+    posts = profile.mediacount
+    return posts
 
 # for reference: https://github.com/instaloader/instaloader/issues/1851
 def download_post_from_link(shortcode):
     L = instaloader.Instaloader()
     L.dirname_pattern = f"/sdcard/InstaLoaderApp/posts"
     post = instaloader.Post.from_shortcode(L.context, shortcode)
-    L.download_post(post, target = "")
+    L.download_post(post, target="")
