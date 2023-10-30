@@ -34,7 +34,7 @@ class MainViewModel @Inject constructor(
         _infoVisible.postValue(false)
         _statusVisible.postValue(true)
         _postsCount.value = null
-        _downloadResult.value = DownloadResult.Loading(message = "Downloading...")
+        _downloadResult.value = DownloadResult.Loading(message = "Loading...")
 
         if (input.isEmpty()) {
             _infoVisible.postValue(true)
@@ -44,9 +44,11 @@ class MainViewModel @Inject constructor(
         }
 
         if (input.startsWith("https://www.instagram.com/p/") || input.startsWith("https://www.instagram.com/reel/")) {
+            _downloadResult.value = DownloadResult.Loading(message = "Checking Link...")
             val shortCode = input.substringAfter("https://www.instagram.com/").substringBefore("/")
             downloadPostsFromLink(shortCode)
         } else {
+            _downloadResult.value = DownloadResult.Loading(message = "Checking Profile...")
             checkProfileExist(input)
         }
     }
@@ -55,10 +57,11 @@ class MainViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             val result =  mainRepository.checkProfileExist(userName)
             if (!result) {
-                _downloadResult.postValue(DownloadResult.Error(message = "Profile doesn't exists"))
+                _downloadResult.postValue(DownloadResult.Error(message = "Profile is private or doesn't exists"))
                 _infoVisible.postValue(true)
                 _statusVisible.postValue(false)
             } else {
+                _downloadResult.postValue(DownloadResult.Loading(message = "Downloading..."))
                 downloadPosts(userName)
             }
         }
@@ -73,6 +76,7 @@ class MainViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             countPosts(userName)
         }
+
         _downloadResult.value?.let { downloadResult ->
             if (downloadResult !is DownloadResult.Loading) {
                 return
@@ -80,21 +84,22 @@ class MainViewModel @Inject constructor(
         }
 
         CoroutineScope(Dispatchers.IO).launch {
-            val current = mainRepository.downloadPosts(userName)
-            Log.d("DEBUG", "Download posts result: $current")
+            val isDownloaded = mainRepository.downloadPosts(userName)
+
             _infoVisible.postValue(true)
             _statusVisible.postValue(false)
-            val totalPosts = _postsCount.value
-            if (current == totalPosts) {
+
+            if (isDownloaded) {
                 _downloadResult.postValue(DownloadResult.Success)
             } else {
-                _downloadResult.postValue(DownloadResult.Loading(message = "Downloading ($current/$totalPosts)..."))
+                _downloadResult.postValue(DownloadResult.Error(message = "Error occurred"))
             }
         }
     }
 
     private fun downloadPostsFromLink(shortCode: String) {
         CoroutineScope(Dispatchers.IO).launch {
+            _downloadResult.value = DownloadResult.Loading(message = "Downloading...")
             val result = mainRepository.downloadPostFromLink(shortCode)
             _infoVisible.postValue(true)
             _statusVisible.postValue(false)

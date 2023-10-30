@@ -29,14 +29,13 @@ class InstaLoaderImpl @Inject constructor(
         return postCount
     }
 
-    override suspend fun downloadPosts(userName: String): Int {
-        var currCount: Int
+    override suspend fun downloadPosts(userName: String): Boolean {
         try {
-            currCount = script.callAttr("download", userName).toInt()
-            return currCount
+            script.callAttr("download", userName)
+            return true
         } catch (e: Exception) {
             e.printStackTrace()
-            return 0
+            return false
         }
     }
 

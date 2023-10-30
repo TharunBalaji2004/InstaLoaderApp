@@ -1,6 +1,5 @@
 package com.alphacorp.instaloader.repository
 
-import com.alphacorp.instaloader.loader.InstaLoader
 import com.alphacorp.instaloader.loader.InstaLoaderImpl
 import javax.inject.Inject
 
@@ -15,7 +14,7 @@ class MainRepository @Inject constructor(
         return instaLoader.countPosts(userName)
     }
 
-    suspend fun downloadPosts(userName: String): Int {
+    suspend fun downloadPosts(userName: String): Boolean {
         return instaLoader.downloadPosts(userName)
     }
 

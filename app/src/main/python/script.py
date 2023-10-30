@@ -13,13 +13,10 @@ def download(profile):
     L.save_metadata = False
     L.post_metadata_txt_pattern = ""
     L.dirname_pattern = f"/sdcard/InstaLoaderApp/{profile}"
-    curr = 0
     profileobj = instaloader.Profile.from_username(L.context, profile)
     for post in profileobj.get_posts():
         L.download_post(post, target="")
-        curr += 1
 
-    return curr
 
 def post_count(username):
     L = instaloader.Instaloader()
