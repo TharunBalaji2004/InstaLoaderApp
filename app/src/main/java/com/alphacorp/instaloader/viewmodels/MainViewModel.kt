@@ -99,7 +99,7 @@ class MainViewModel @Inject constructor(
 
     private fun downloadPostsFromLink(shortCode: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            _downloadResult.value = DownloadResult.Loading(message = "Downloading...")
+            _downloadResult.postValue(DownloadResult.Loading(message = "Downloading..."))
             val result = mainRepository.downloadPostFromLink(shortCode)
             _infoVisible.postValue(true)
             _statusVisible.postValue(false)
